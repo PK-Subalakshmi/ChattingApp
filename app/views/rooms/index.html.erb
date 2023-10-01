@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+      body {
+          font-family: Arial, sans-serif;
+          background-color: #f4f4f4;
+          margin: 0;
+          padding: 0;
+      }
+
+      .page-container {
+          background-color: #f4f4f4; /* Background color for the entire page */
+          padding: 20px;
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+      }
+
+      h1 {
+          text-align: center;
+          color: #333;
+          margin-top: 20px;
+      }
+
+      .container {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          margin: 20px;
+      }
+
+      .container > div {
+          flex: 0 0 calc(50% - 10px);
+          padding: 20px;
+          background-color: #fff;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          border-radius: 5px;
+          transition: transform 0.3s ease-in-out;
+      }
+
+      .container > div:hover {
+          transform: rotate(2deg);
+      }
+
+      h3 {
+          margin-top: 20px;
+          font-size: 20px;
+          color: black;
+      }
+
+      /* Colors */
+      h3 {
+          color: black; /* Blue color for headings */
+      }
+
+      .container > div {
+          border: 2px solid #007bff; /* Blue border for containers */
+      }
+
+      .container > div:hover {
+          background-color: #007bff; /* Blue background on hover */
+          color: #fff; /* White text on hover */
+      }
+  </style>
+</head>
+<body>
+<div class="page-container">
+  <h1>Welcome <%= current_user.email %></h1>
+  <h3>You can click on any available user to initiate a private chat.</h3>
+  <div class="container">
+    <div>
+      <h3> Users</h3>
+      <%= turbo_stream_from "users" %>
+      <div id="users">
+        <%= render @users %>
+      </div>
+    </div>
+    <div>
+      <h3>Rooms</h3>
+      <%= turbo_stream_from "rooms" %>
+      <div id="rooms">
+        <%= render @rooms %>
+      </div>
+      <%= render partial: "layouts/new_room_form" %>
+    </div>
+  </div>
+
+  <div class="col-md-10 bg-dark text-light">
+    <% if @single_room %>
+      <h4 class="text-center"> <%= @single_room.name %> </h4>
+      <%= turbo_stream_from @single_room %>
+      <div id="messages">
+        <!-- Messages will appear here -->
+      </div>
+      <%= render partial: 'layouts/new_message_form' %>
+    <% end %>
+  </div>
+</div>
+</body>
+</html>
+
+
+

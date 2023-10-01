@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+      body {
+          font-family: Arial, sans-serif;
+          background-color: #f4f4f4;
+      }
+
+      h1 {
+          text-align: center;
+          color: #333;
+          margin-top: 20px;
+      }
+
+      .container {
+          text-align: center;
+          margin-top: 30px;
+      }
+
+      .button {
+          display: inline-block;
+          padding: 10px 20px;
+          background-color: #007bff;
+          color: #fff;
+          text-decoration: none;
+          border-radius: 5px;
+          margin: 10px;
+          cursor: pointer;
+      }
+
+      .button:hover {
+          background-color: #0056b3;
+      }
+  </style>
+</head>
+<body>
+<h1>Chatter</h1>
+<div class="container">
+  <% if current_user %>
+    <%= link_to "Start Chatting", rooms_path, class: "button" %>
+    <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "button" %>
+  <% else  %>
+    <%= link_to "Login", new_user_session_path, class: "button" %>
+    <%= link_to "Signup", new_user_registration_path, class: "button" %>
+  <% end %>
+</div>
+</body>
+</html>

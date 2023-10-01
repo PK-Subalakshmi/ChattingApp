@@ -1,0 +1,4 @@
+<h1>Users#show</h1>
+<p>Find me in app/views/users/show.html.erb</p>
+<h4 class="text-center"> <%= @user&.username || @single_room.name %> </h4>
+<%= link_to 'Sign Out', signout_path,  :method => :delete %>
